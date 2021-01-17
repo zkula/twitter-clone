@@ -1,38 +1,97 @@
-.App {
-  text-align: center;
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.home-page {
+  display: flex;
+  height: 100vh;
+  background-color: #0f0f11;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.left {
+  /* background-color: #f2f2f2; */
+  /* background-color: #0f0f11; */
+  flex: 0.2;
+  max-width: 200px;
+  min-width: 70px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
+  padding-top: 30px;
+  border-right: 1px solid gray;
 }
 
-.App-link {
-  color: #61dafb;
+.left__home {
+  color: rgb(0, 195, 255);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.left > :first-child {
+  font-size: 50px;
+}
+
+.left > * {
+  padding: 20px;
+}
+
+/* .left > *:hover {
+  border-right: 1px solid rgb(0, 195, 255);
+} */
+
+.main {
+  /* background-color: #0f0f11; */
+
+  flex: 1;
+}
+
+.main__input {
+  margin: 30px;
+  margin-top: 50px;
+
+  display: flex;
+  align-items: center;
+  color: white;
+  border-bottom: 1px solid lightgrey;
+}
+
+.main__input > input {
+  flex: 1;
+  /* margin: 5px; */
+  border: none;
+  outline-width: 0;
+  margin-right: 5px;
+  background-color: transparent;
+  color: white;
+  /* font-size: 30px; */
+  padding-left: 10px;
+}
+
+.main__input > * {
+  font-size: 30px;
+  padding-right: 10px;
+}
+
+.input__searchIcon {
+  font-size: 60px;
+}
+
+.main__tweetsList {
+  height: 500px;
+  margin: 20px;
+  background-color: #516bf0;
+}
+
+.right {
+  background-color: blue;
+  flex: 1;
+}
+
+.right__trending {
+  /* height: 500px;
+  width: 200px; */
+  height: 70%;
+  width: 50%;
+  background-color: orange;
+  margin: 20px;
 }
