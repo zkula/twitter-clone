@@ -48,6 +48,7 @@ body {
 .main__input {
   margin: 30px;
   margin-top: 50px;
+  margin-bottom: 0;
 
   display: flex;
   align-items: center;
@@ -74,24 +75,62 @@ body {
 
 .input__searchIcon {
   font-size: 60px;
+  cursor: pointer;
 }
 
 .main__tweetsList {
-  height: 500px;
-  margin: 20px;
-  background-color: #516bf0;
+  height: 100%;
+  margin: 10px 20px 10px 20px;
+  /* background-color: #516bf0; */
+  padding: 0 10px;
+  overflow: scroll;
 }
 
 .right {
-  background-color: blue;
   flex: 1;
+  border-left: 1px solid gray;
 }
 
 .right__trending {
-  /* height: 500px;
-  width: 200px; */
-  height: 70%;
-  width: 50%;
-  background-color: orange;
-  margin: 20px;
+  height: 500px;
+  width: 300px;
+  /* height: 70%;
+  width: 50%; */
+  background-color: #ffffff;
+  margin: 50px;
+  border-radius: 40px;
+  border: 1px solid #979797;
+  padding-top: 10px;
+}
+
+.trendingTable {
+  /* height: 300px */
+  width: 90%;
+  height: 50%;
+  background-color: #f2f2f2;
+  margin: auto;
+  margin-top: 10px;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.trendingTable > :first-child {
+  font-size: smaller;
+  padding-top: 10px;
+}
+
+.trendingTable__row {
+  border-bottom: 1px solid #d8d8d8;
+  min-height: 40px;
+}
+
+.trendingTable__row:not(:first-child) {
+  cursor: pointer;
+}
+
+.trendingTable__row > * {
+  margin: 10px;
+  margin-left: 30px;
+  color: #a5a5a6;
 }
