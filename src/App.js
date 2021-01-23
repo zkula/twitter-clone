@@ -35,6 +35,14 @@ function App() {
     });
   };
 
+  const searchHashtag = (q) => {
+    console.log("Hashtag Query: ", q);
+    setQuery(q);
+    getTwitterData(q).then((newData) => {
+      newData && setData(newData.statuses);
+    });
+  };
+
   const hanldeKeyDown = (key) => {
     if (key === "Enter") {
       getTwitterData(query).then((newData) => {
@@ -81,13 +89,13 @@ function App() {
               <p>Trends for you</p>
             </div>
             <div className="trendingTable__row">
-              <p>#Coding</p>
+              <p onClick={() => searchHashtag("coding")}>#Coding</p>
             </div>
             <div className="trendingTable__row">
-              <p>#JavaScript</p>
+              <p onClick={() => searchHashtag("javascript")}>#JavaScript</p>
             </div>
             <div className="trendingTable__row">
-              <p>#Python</p>
+              <p onClick={() => searchHashtag("python")}>#Python</p>
             </div>
             <div className="trendingTable__row"></div>
           </div>

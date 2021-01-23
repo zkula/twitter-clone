@@ -125,7 +125,7 @@ body {
   min-height: 40px;
 }
 
-.trendingTable__row:not(:first-child) {
+.trendingTable__row:not(:first-child) > p {
   cursor: pointer;
 }
 
