@@ -20,7 +20,7 @@ body {
   align-items: center;
   color: white;
   padding-top: 30px;
-  border-right: 1px solid gray;
+  border-right: 1px solid #3b3b3b;
 }
 
 .left__home {
@@ -79,16 +79,20 @@ body {
 }
 
 .main__tweetsList {
-  height: 800px;
+  height: 80%;
   margin: 10px 20px 10px 20px;
   /* background-color: #516bf0; */
   padding: 0 10px;
-  overflow: scroll;
+  overflow-y: scroll;
+}
+
+.main__tweetsList::-webkit-scrollbar {
+  display: none;
 }
 
 .right {
   flex: 1;
-  border-left: 1px solid gray;
+  border-left: 1px solid #3b3b3b;
 }
 
 .right__trending {
