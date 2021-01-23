@@ -20,9 +20,9 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-    console.log("data:", data);
-  }, [data]);
+  // useEffect(() => {
+  //   console.log("data:", data);
+  // }, [data]);
 
   const updateInput = (input) => {
     setQuery(input);
