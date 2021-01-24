@@ -78,8 +78,6 @@ function App() {
           {data.map((tweet, index) => (
             <Tweet data={tweet} key={index} />
           ))}
-          {/* <Tweet data={data} />
-          <Tweet data={data} /> */}
         </div>
       </div>
       <div className="right">

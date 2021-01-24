@@ -1,13 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Tweet.css";
 import { Avatar } from "@material-ui/core";
+import moment from "moment";
 
 function Tweet({ data }) {
+  const [createdDate, setCreatedDate] = useState("");
+
   useEffect(() => {
-    {
-      data.extended_entities &&
-        console.log("media found: ", data.extended_entities.media);
-    }
+    //Set createdDate
+    const timeFromNow = moment(data.created_at).fromNow();
+    setCreatedDate(timeFromNow);
+
+    data.extended_entities &&
+      console.log("media found: ", data.extended_entities.media);
   }, []);
 
   return (
@@ -66,7 +71,7 @@ function Tweet({ data }) {
         <p>{data.full_text}</p>
       </div>
       <div className="tweet__dateContainer">
-        <p>20 hours ago</p>
+        <p>{createdDate}</p>
       </div>
     </div>
   );
