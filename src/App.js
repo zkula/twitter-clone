@@ -18,15 +18,6 @@ function App() {
     getTweets();
   }, []);
 
-  //Update nextDataUrl
-  useEffect(() => {
-    console.log(
-      "setting nextDataUrl to :",
-      data?.search_metadata?.next_results
-    );
-    data.search_metadata && setNextDataUrl(data.search_metadata.next_results);
-  }, [data]);
-
   //Retreive tweets from API
   const getTweets = async (q = query) => {
     const query = q;
@@ -42,9 +33,10 @@ function App() {
       .then((response) => {
         return response.json();
       })
-      .then((data) => {
-        console.log("data from getTwitterData: ", data);
-        setData(data);
+      .then((newData) => {
+        console.log("data from getTwitterData: ", newData);
+        setData(newData);
+        setNextDataUrl(newData.search_metadata.next_results);
       });
   };
 
@@ -89,6 +81,7 @@ function App() {
         console.log("data from loadNextPage: ", newData, tempData);
         console.log("tempData: ", tempData);
         setData(tempData);
+        setNextDataUrl(tempData.search_metadata.next_results);
       });
   };
 
