@@ -45,7 +45,9 @@ function Tweet({ data }) {
           <video controls>
             <source
               src={
-                data.extended_entities?.media[0]?.video_info.variants[0]?.url
+                data.extended_entities?.media[0]?.video_info.variants.find(
+                  (variant) => variant.content_type === "video/mp4"
+                ).url
               }
               type="video/mp4"
             />
@@ -59,7 +61,9 @@ function Tweet({ data }) {
           <video loop autoPlay>
             <source
               src={
-                data.extended_entities?.media[0]?.video_info.variants[0]?.url
+                data.extended_entities?.media[0]?.video_info.variants.find(
+                  (variant) => variant.content_type === "video/mp4"
+                ).url
               }
               type="video/mp4"
             />

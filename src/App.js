@@ -6,23 +6,47 @@ import { Avatar } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import Tweet from "./Tweet";
 import React, { useEffect, useState } from "react";
-import { getTwitterData } from "./exercise/js/index";
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 
 function App() {
   const [query, setQuery] = useState("coding");
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
+  const [nextDataUrl, setNextDataUrl] = useState("");
 
-  //FIX THIS - NEWDATA RETURNS A PROMISE INSTEAD OF DATA
+  //Get initial twitter api data when app renders
   useEffect(() => {
-    getTwitterData(query).then((newData) => {
-      console.log("getting data:", newData, newData?.statuses);
-      newData && setData(newData.statuses);
-    });
+    getTweets();
   }, []);
 
-  // useEffect(() => {
-  //   console.log("data:", data);
-  // }, [data]);
+  //Update nextDataUrl
+  useEffect(() => {
+    console.log(
+      "setting nextDataUrl to :",
+      data?.search_metadata?.next_results
+    );
+    data.search_metadata && setNextDataUrl(data.search_metadata.next_results);
+  }, [data]);
+
+  //Retreive tweets from API
+  const getTweets = async (q = query) => {
+    const query = q;
+    if (!query) {
+      console.log("no query found");
+      return;
+    }
+    const encodedQuery = encodeURIComponent(query); //Handle hashtags in query
+    let url = `http://localhost:3000/tweets?q=${encodedQuery}&count=10`;
+
+    console.log("URL: ", url);
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log("data from getTwitterData: ", data);
+        setData(data);
+      });
+  };
 
   const updateInput = (input) => {
     setQuery(input);
@@ -30,25 +54,42 @@ function App() {
 
   const searchFunc = () => {
     console.log("Query: ", query);
-    getTwitterData(query).then((newData) => {
-      newData && setData(newData.statuses);
-    });
+    getTweets();
   };
 
   const searchHashtag = (q) => {
     console.log("Hashtag Query: ", q);
     setQuery(q);
-    getTwitterData(q).then((newData) => {
-      newData && setData(newData.statuses);
-    });
+    getTweets(q);
   };
 
   const hanldeKeyDown = (key) => {
     if (key === "Enter") {
-      getTwitterData(query).then((newData) => {
-        newData && setData(newData.statuses);
-      });
+      getTweets();
     }
+  };
+
+  const scrollToTop = () => {
+    document.getElementById("main__tweetsList").scrollTop = 0;
+  };
+
+  //Retrieve next load of tweets
+  const loadNextPage = () => {
+    console.log("loadNextpage in Effect", nextDataUrl);
+    let url = `http://localhost:3000/tweets${nextDataUrl}`;
+    console.log("URL: ", url);
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((newData) => {
+        const tempData = { ...newData };
+        tempData.statuses = [...data.statuses].concat(tempData.statuses);
+        // const tempData = [...data.statuses].push(newData.statuses);
+        console.log("data from loadNextPage: ", newData, tempData);
+        console.log("tempData: ", tempData);
+        setData(tempData);
+      });
   };
 
   return (
@@ -56,7 +97,7 @@ function App() {
       <div className="left">
         <TwitterIcon />
         <div className="left__home">
-          <HomeIcon />
+          <HomeIcon onClick={() => scrollToTop()} />
         </div>
         <Avatar src="https://i.insider.com/5bd196e05f5e950fcc71db52?width=1100&format=jpeg&auto=webp" />
       </div>
@@ -74,10 +115,16 @@ function App() {
             onClick={() => searchFunc()}
           />
         </div>
-        <div className="main__tweetsList">
-          {data.map((tweet, index) => (
+        <div className="main__tweetsList" id="main__tweetsList">
+          {data.statuses?.map((tweet, index) => (
             <Tweet data={tweet} key={index} />
           ))}
+          <div className="main__bottom">
+            <ArrowDownwardIcon
+              className="main__bottomIcon"
+              onClick={() => loadNextPage()}
+            />
+          </div>
         </div>
       </div>
       <div className="right">
@@ -87,13 +134,13 @@ function App() {
               <p>Trends for you</p>
             </div>
             <div className="trendingTable__row">
-              <p onClick={() => searchHashtag("coding")}>#Coding</p>
+              <p onClick={() => searchHashtag("#Coding")}>#Coding</p>
             </div>
             <div className="trendingTable__row">
-              <p onClick={() => searchHashtag("javascript")}>#JavaScript</p>
+              <p onClick={() => searchHashtag("#JavaScript")}>#JavaScript</p>
             </div>
             <div className="trendingTable__row">
-              <p onClick={() => searchHashtag("python")}>#Python</p>
+              <p onClick={() => searchHashtag("#Python")}>#Python</p>
             </div>
             <div className="trendingTable__row"></div>
           </div>

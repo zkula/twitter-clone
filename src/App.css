@@ -25,6 +25,7 @@ body {
 
 .left__home {
   color: rgb(0, 195, 255);
+  cursor: pointer;
 }
 
 .left > :first-child {
@@ -80,14 +81,62 @@ body {
 
 .main__tweetsList {
   height: 80%;
-  margin: 10px 20px 10px 20px;
+  margin: 10px 5px 10px 20px;
   /* background-color: #516bf0; */
-  padding: 0 10px;
+  padding: 0 15px 0 10px;
   overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 .main__tweetsList::-webkit-scrollbar {
-  display: none;
+  /* display: none; */
+  width: 10px;
+  /* height: 10px; */
+}
+
+/* Track */
+.main__tweetsList::-webkit-scrollbar-track {
+  background: none;
+  margin-top: 20px;
+  margin-bottom: 70px;
+}
+
+/* Handle */
+.main__tweetsList::-webkit-scrollbar-thumb {
+  background: #3b3b3b;
+  border-radius: 40px;
+  height: 10%;
+}
+
+/* Handle on hover */
+.main__tweetsList::-webkit-scrollbar-thumb:hover {
+  background: rgb(0, 195, 255);
+}
+
+.main__bottom {
+  /* width: 100%; */
+  height: 40px;
+  border: 1px solid #3b3b3b;
+  margin-top: 30px;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.main__bottom:hover {
+  border: 1px solid rgb(0, 195, 255);
+  background-color: #1c1c1c;
+}
+
+.main__bottomIcon {
+  color: gray;
+}
+
+.main__bottomIcon:hover {
+  border-bottom: 1px solid rgb(0, 195, 255);
+  cursor: pointer;
 }
 
 .right {
@@ -130,7 +179,12 @@ body {
 }
 
 .trendingTable__row:not(:first-child) > p {
+  font-weight: 600;
+}
+
+.trendingTable__row:not(:first-child) > p:hover {
   cursor: pointer;
+  color: darkslategray;
 }
 
 .trendingTable__row > * {
